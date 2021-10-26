@@ -7,7 +7,10 @@ let app = express();
 function open(p) {
     return {
         read:()=>fs.readFileSync(p, "utf-8"),
-        react:(r)=>fs.readFileSync(p, "utf-8") + `<script type="text/babel" src="${r}"></script>`,
+        react:(r)=>fs.readFileSync(p, "utf-8").replace(
+            "${script}", 
+            `<script type="text/babel" src="${r}"></script>`
+        ),
         write:(data) => fs.writeFileSync(p, data),
     }
 };

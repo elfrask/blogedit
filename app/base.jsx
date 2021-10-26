@@ -14,14 +14,14 @@ let genlink = (e) => {
 
 class Img extends React.Component {
     state = {
-
-    };
+        
+    }
     render() {
 
 
         return (
             <div 
-                onClick={this.props.click} 
+                onClick={genlink(this.props.click)} 
                 className={"img " + (this.props.className||"")}
                 style={asi(
                     {
