@@ -3,8 +3,18 @@
 class App extends React.Component {
     render() {
         return (
-            <div>
-                Hola mundo
+            <div className="fill">
+                <div className="head">
+                    {range(0, 10).map(x=>"Hola")}
+                </div>
+                <div className="body">
+                    <div id="doc" className="doc l">
+
+                    </div>
+                    <div id="pro" className="pro l">
+
+                    </div>
+                </div>
             </div>
         )
     }

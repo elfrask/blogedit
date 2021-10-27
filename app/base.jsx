@@ -10,6 +10,12 @@ let genlink = (e) => {
         }
     }
 };
+let range = (
+    (i, f, step) =>  
+    {i=i||0;f=f||1;step=step||1;let out=[];
+    for(let ii=i; ii<f;ii=ii+step){out.push(ii)};
+    return out}
+);
 
 
 class Img extends React.Component {
@@ -27,11 +33,12 @@ class Img extends React.Component {
                     {
                         width:this.props.size||"",
                         height:this.props.size||"",
+                        BackgroundImage:`url('${this.props.src||""}')`
                     },
                     this.props.style
                 )}
             >
-                
+
             </div>
         )
     }
