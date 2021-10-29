@@ -7,10 +7,24 @@ let app = express();
 function open(p) {
     return {
         read:()=>fs.readFileSync(p, "utf-8"),
-        react:(r)=>fs.readFileSync(p, "utf-8").replace(
-            "${script}", 
-            `<script type="text/babel" src="${r}"></script>`
-        ),
+        react:(title, r)=>{
+            let result = "";
+            console.log(r)
+
+            if (Array.isArray(r)) {
+                result = r.map(t => `<script type="text/babel" src="${t}"></script>`).join(" ")
+            } else {
+                result = `<script type="text/babel" src="${r}"></script>`
+            }
+            console.log(result)
+            return fs.readFileSync(p, "utf-8").replace(
+                "${title}",
+                title
+            ).replace(
+                "${script}", 
+                result
+            )
+        },
         write:(data) => fs.writeFileSync(p, data),
     }
 };
@@ -20,11 +34,15 @@ function open(p) {
 //app.use(galleta(["vine", "code", "app"]));
 app.get("/", (req, res) => {
     res.send(
-        open("./html/template.html").react("/app/main.jsx")
+        open("./html/template.html").react("Blogedit", [
+            "/app/blogedit/guis.jsx",
+            "/app/blogedit/plugins.jsx",
+            "/app/blogedit/main.jsx",
+        ])
     )
 });
 
-(["css", "js", "app"]).forEach(X=>{
+(["css", "js", "app", "src"]).forEach(X=>{
     if (!fs.existsSync("./"+X)) {
         fs.mkdirSync("./"+X)
     };

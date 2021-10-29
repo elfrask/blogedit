@@ -18,7 +18,7 @@
     width: 100%;
     height: 50px;
     background-color: #334;
-    display: flex;
+    
 }
 
 .body {
@@ -33,8 +33,6 @@
     
 }
 
-.l {float: left;}
-.r {float: right;}
 
 .doc {
     height: 100%;
@@ -54,7 +52,7 @@
 }
 
 .bt_head {
-    width: 33.3333333%;
+    width: 100px;
     height: 50px;
     color: white;
     cursor: pointer;
@@ -67,11 +65,24 @@
 }
 .bt_head:hover {
     background-color: #556;
+    
+}
+
+.box-pro {
+    width: 100%;
+    height: 100%;
+    color: white;
 }
 
 .tag-ren {
     
 }
+
+
+
+.l {float: left;}
+.r {float: right;}
+
 
 @media (orientation:portrait) {
     .pro {

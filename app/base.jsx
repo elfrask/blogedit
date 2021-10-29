@@ -24,7 +24,7 @@ class Img extends React.Component {
     }
     render() {
 
-
+        console.log(this.props)
         return (
             <div 
                 onClick={genlink(this.props.click)} 
@@ -33,7 +33,7 @@ class Img extends React.Component {
                     {
                         width:this.props.size||"",
                         height:this.props.size||"",
-                        BackgroundImage:`url('${this.props.src||""}')`
+                        backgroundImage:`url('${this.props.src||""}')`
                     },
                     this.props.style
                 )}
