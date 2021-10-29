@@ -17,13 +17,14 @@
 .head {
     width: 100%;
     height: 50px;
-    background-color: #eee;
+    background-color: #334;
+    display: flex;
 }
 
 .body {
     width: 100%;
     height: calc(100% - 50px);
-    background-color: #fff;
+    background-color: #223;
     transition: 0.4s;
     
 }
@@ -36,12 +37,71 @@
 .r {float: right;}
 
 .doc {
-    width: calc(100% - 250px);
     height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.pro {
+    height: 100%;
+    background-color: rgb(43, 42, 73);
+}
+.documento {
+    width: 100%;
+    max-width: 600px;
+    min-height: 100px;
+    height: max-content;
+    background-color: #446;
 }
 
-.pro {
-    width: 250px;
-    height: 100%;
-    background-color: #ddd;
+.bt_head {
+    width: 33.3333333%;
+    height: 50px;
+    color: white;
+    cursor: pointer;
+    background-color: #446;
+    transition: 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+.bt_head:hover {
+    background-color: #556;
+}
+
+.tag-ren {
+    
+}
+
+@media (orientation:portrait) {
+    .pro {
+        width: 100%;
+        z-index: -1;
+        position: fixed;
+        left: 0px;
+    }
+    .doc {
+        width: calc(100%);
+        z-index: 1;
+    }
+    .documento {
+        margin-top: 0%;
+        margin-bottom: 0%;
+        max-width: 100%;
+    }
+}
+@media (orientation:landscape) {
+    .pro {
+        width: 300px;
+    }
+    .doc {
+        width: calc(100% - 340px);
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .documento {
+        margin-top: 100px;
+        margin-bottom: 100px;
+        border-radius: 20px;
+    }
 }

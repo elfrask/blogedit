@@ -5,14 +5,24 @@ class App extends React.Component {
         return (
             <div className="fill">
                 <div className="head">
-                    {range(0, 10).map(x=>"Hola")}
+                    
+                    
                 </div>
                 <div className="body">
-                    <div id="doc" className="doc l">
+                    <div className="doc l">
+                        <div className="documento" id="doc">
 
+                        </div>
                     </div>
-                    <div id="pro" className="pro l">
-
+                    <div className="pro l">
+                        <div className="head" style={{backgroundColor:"#445"}}>
+                            <div className="bt_head">Proyecto</div>
+                            <div className="bt_head">Diseño</div>
+                            <div className="bt_head">Script</div>
+                        </div>
+                        <div className="body" style={{backgroundColor:"transparent"}}>
+                            interfaz
+                        </div>
                     </div>
                 </div>
             </div>
