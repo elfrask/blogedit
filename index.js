@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
     res.send(
         open("./html/template.html").react("Blogedit", [
             "/app/blogedit/guis.jsx",
-            "/app/blogedit/plugins.jsx",
+            "/app/blogedit/plug.jsx",
             "/app/blogedit/main.jsx",
         ])
     )

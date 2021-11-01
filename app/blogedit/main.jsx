@@ -40,7 +40,7 @@ class App extends React.Component {
                         </div>
                         <div className="body" style={{backgroundColor:"transparent"}}>
                             {([
-                                ["proj"], 
+                                ["proj", Project_gui], 
                                 ["arg"], 
                                 ["script"], 
                                 ["conf"]

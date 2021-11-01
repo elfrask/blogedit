@@ -83,6 +83,53 @@
 .l {float: left;}
 .r {float: right;}
 
+.container {
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    margin: 5px;
+    overflow: auto;
+}
+
+body {
+    overflow: hidden;
+}
+
+.node {
+    width: calc(100% - 0px);
+    height: max-content;
+}
+.node-title {
+    width: calc(100% - 25px);
+    border-left: solid greenyellow 5px;
+    min-height: 20px;
+    padding: 10px;
+    font-size: 14px;
+    color: white;
+    transition: 0.4s;
+    line-height: 20px;
+    cursor: pointer;
+}
+.node-title:hover {
+    background-color: #FFFFFF11;
+}
+.node-list {
+    margin-left: 20px;
+    width: calc(100% - 20px);
+}
+.box-node {
+    border-left: solid gold 5px;
+    width: calc(100% - 25px);
+    padding: 10px;
+}
+
+.plug-gui-textbox {
+    overflow: auto;
+    width: calc(100% - 20px);
+    height: 20px;
+    line-height: 20px;
+    padding: 10px;
+}
+
 
 @media (orientation:portrait) {
     .pro {
