@@ -59,10 +59,14 @@ class Nodo extends React.Component {
 
 
 function open_propertys(pro, Gui, callback) {
+    
+    console.log(pro, Gui)
+    
     ReactDOM.render(
-        <Gui pro={pro||{}}>
-
-        </Gui>,
+        <div>
+            <Gui pro={pro||{}}/>
+            total
+        </div>,
         go("arg"),
         () => {
             
@@ -73,15 +77,24 @@ function open_propertys(pro, Gui, callback) {
     )
 }
 
+
 function render_project_tree() {
     ReactDOM.render(
-        <Nodo title={"Project: " + projecto.name}>
-            
+        <Nodo title={"Project: " + projecto.name} click={() => {
+            open_propertys(proji[0], proji[1], () => {})
+        }}>
+            {projecto.data.map(x=> {
+
+            })} 
+
+            <input type="color"></input>
         </Nodo>,
         go("tree_proj"),
         () => {}
     )
 }
+
+
 
 class Project_gui extends React.Component {
     render() {

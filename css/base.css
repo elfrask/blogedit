@@ -51,7 +51,7 @@
     background-color: #446;
 }
 
-.bt_head {
+.bt_head, .plug-gui-button {
     width: 100px;
     height: 50px;
     color: white;
@@ -63,7 +63,7 @@
     align-items: center;
     float: left;
 }
-.bt_head:hover {
+.bt_head:hover, .plug-gui-button:hover {
     background-color: #556;
     
 }

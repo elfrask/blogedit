@@ -26,7 +26,7 @@ class App extends React.Component {
                             
                             {
                                 ([
-                                    ["/src/img/project.png", () => open_gui(0)],
+                                    ["/src/img/project.png", () => {open_gui(0); render_project_tree()}],
                                     ["/src/img/config.png", () => open_gui(1)],
                                     ["/src/img/project.png", () => open_gui(2)],
                                 ]).map(x=> {
@@ -61,12 +61,13 @@ class App extends React.Component {
     }
 };
 
-
 ReactDOM.render(
     <App></App>,
     go("__body__"),
     () => {
         screens = screens.map(x=>go(x))
-        open_gui(0)
+        open_gui(0);
+        render_project_tree();
+        loads_fin.forEach(x=>x())
     }
 )
