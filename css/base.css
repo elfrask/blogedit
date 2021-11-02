@@ -78,6 +78,11 @@
     
 }
 
+.hc {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
 
 .l {float: left;}
@@ -128,8 +133,46 @@ body {
     height: 20px;
     line-height: 20px;
     padding: 10px;
+    background-color: #00000033;
+    border-bottom: solid greenyellow 5px;
 }
 
+.plug-gui-textbox-mul {
+    height: max-content;
+}
+
+.proter {
+    width: 100%;
+    height: max-content;
+    background-color: #334;
+}
+.value-desc {
+    font-size: 14px;
+    width: calc(100% - 10px);
+    padding: 5px;
+    font-weight: bold;
+    color: gold
+}
+
+.name-plug {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    background-color: #556;
+}
+
+.plug-gui-image {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: #002;
+    width: 100%;
+    height: 200px;
+    cursor:pointer;
+    
+}
 
 @media (orientation:portrait) {
     .pro {
@@ -160,6 +203,6 @@ body {
     .documento {
         margin-top: 100px;
         margin-bottom: 100px;
-        border-radius: 20px;
+        border-radius: 10px;
     }
 }

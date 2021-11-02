@@ -32,7 +32,8 @@ let tools = {
             opacity:"0"
         })
         meno.addEventListener("change", (t) => {
-            res(meno.value)
+            console.log("llego", meno.value)
+            res(meno.value+"")
             meno.remove()
             
         })
@@ -41,6 +42,32 @@ let tools = {
         })
         document.body.appendChild(meno);
         meno.click();
+    }),
+    LoadImageFromFile:() => new Promise((res, err) => {
+        let file = document.createElement("input")
+        file.type = "file";
+        file.accept = "image/*";
+        file.style.display = "none"
+        document.body.appendChild(file)
+        file.onchange = () => {console.log("cambio")}
+        
+        file.addEventListener("change", (t) => {
+            let fit = file.files[0];
+            let read = new FileReader();
+            
+            console.log("llego")
+
+            read.addEventListener("loadend", () => {
+                res(read.result)
+                file.remove()
+            });
+            read.addEventListener("error", err)
+
+            read.readAsDataURL(fit)
+        });
+        
+
+        file.click()
     })
 }
 

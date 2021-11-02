@@ -1,7 +1,6 @@
 
 let projecto = {
     name:"Sin Titulo",
-    bg:"#00000000",
     description:"",
     img:"",
     data:[],
@@ -40,6 +39,7 @@ class Nodo extends React.Component {
 
         if (this.props.click) {
             click = genlink(this.props.click);
+            this.state.show = true
         };
 
         return (
@@ -60,7 +60,7 @@ class Nodo extends React.Component {
 
 function open_propertys(pro, Gui, callback) {
     
-    console.log(pro, Gui)
+    //console.log(pro, Gui)
     
     ReactDOM.render(
         <div>
@@ -85,9 +85,7 @@ function render_project_tree() {
         }}>
             {projecto.data.map(x=> {
 
-            })} 
-
-            <input type="color"></input>
+            })}
         </Nodo>,
         go("tree_proj"),
         () => {}
