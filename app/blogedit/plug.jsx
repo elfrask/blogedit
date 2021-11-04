@@ -73,10 +73,10 @@ function create_plug(name, gui = [], template) {
                                             pop.style.backgroundImage = `url('${t}')`;
 
                                             pro[x.id] = t;
-                                            console.log("cargado")
+                                            //console.log("cargado")
                                             
                                         }).catch(t=>{
-                                            console.log("error")
+                                            //console.log("error")
                                             pop.addEventListener("error", () => {
                                                 pop.style.transition = "0.4s";
                                                 pop.style.backgroundColor="red"

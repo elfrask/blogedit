@@ -49,13 +49,13 @@ let tools = {
         file.accept = "image/*";
         file.style.display = "none"
         document.body.appendChild(file)
-        file.onchange = () => {console.log("cambio")}
+        //file.onchange = () => {console.log("cambio")}
         
         file.addEventListener("change", (t) => {
             let fit = file.files[0];
             let read = new FileReader();
             
-            console.log("llego")
+            //console.log("llego")
 
             read.addEventListener("loadend", () => {
                 res(read.result)
