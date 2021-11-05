@@ -6,6 +6,21 @@ let open_gui = (gui) => {
 } 
 
 
+let create_option = (img, call) => ({img:img, call:call})
+
+let options = [
+    create_option("/src/img/rich/bold.png", () => {
+        document.execCommand("bold")
+    }),
+    create_option("/src/img/rich/italic.png", () => {
+        document.execCommand("italic")
+    }),
+    create_option("/src/img/rich/underline.png", () => {
+        document.execCommand("underline")
+    }),
+];
+
+
 class App extends React.Component {
     render() {
         return (
@@ -56,10 +71,68 @@ class App extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div id="keyrich" className="keyHelp rich">
+                    <div className="container rich" style={{
+                        backgroundColor:"#00000033"
+                    }}>
+                        {
+                            options.map(x=>{
+                                return(
+                                    <button className="bt_head rich" onClick={x.call}>
+                                        <Img src={x.img} size="25px" className="rich" />
+                                    </button>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
             </div>
         )
     }
 };
+
+
+document.addEventListener("click", (e) => {
+    let mod = e.target;
+
+    while (true) {
+        
+        if (mod.tagName!=="BODY") break
+
+
+        if (mod.tagName!=="DIV") {
+            console.log(mod)
+            if (mod.classList.length===0) {
+                mod = mod.parentNode
+                
+            } else {
+                break
+                
+            }
+            
+        } else {
+            mod = mod.parentNode
+        }
+    }
+
+    console.log(mod)
+
+    let targ = (
+        mod.className.match("plug-gui-textbox-rich")||
+        mod.className.match("rich")||
+        mod.className.match("keyboard-gui")
+    );
+
+    //console.log(targ)
+
+
+    if(targ) {
+        go("keyrich").style.height = "max-content";
+    } else {
+        go("keyrich").style.height = "0px";
+    }
+
+})
 
 ReactDOM.render(
     <App></App>,

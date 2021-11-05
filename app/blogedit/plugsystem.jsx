@@ -5,13 +5,19 @@ function set_plug(name, plug) {
 let Elements = {
     textbox:(id, desc, text, multiline, rich) => ({id:id, text:text, mul:multiline||false, rich:rich||false, type:"textbox", desc:desc}),
     button:(id, desc, img, click) => ({id:id, click:click, type:"button", img:img, desc:desc}),
-    image:(id, desc, img) => ({type:"image", id:id, img:img, desc:desc})
+    image:(id, desc, img) => ({type:"image", id:id, img:img, desc:desc}),
+    color:(id, desc, color) => ({type:"color", id:id, desc:desc, color:color})
 }
 
 
-function create_plug(name, gui = [], template) {
+function create_plug(name, gui = [], extend= []) {
+    let mac = (extend||[]).map(x=>x);
+    gui.map(x=>mac.push(x));
+    gui = mac;
+    
+
     let salida = (pr, callback) => {
-        let pro = asi(pr||template||{}, {});
+        let pro = asi(pr||{}, {});
         
         function refresh() {
             (callback||(() =>{}))(pro)
@@ -46,13 +52,15 @@ function create_plug(name, gui = [], template) {
                                         //console.log(pop.innerText)
                                         refresh()
                                     }} className={"plug-gui-textbox " + 
-                                    (x.mul?"plug-gui-textbox-mul":"")}>
+                                    (x.mul?"plug-gui-textbox-mul":"") + " " +
+                                    (x.rich?"plug-gui-textbox-rich":"")
+                                    }>
                                         {pro[x.id]||x.text||""}
                                     </div>
                                 )
                             } else if (x.type == "button") {
                                 salida = (
-                                    <div id={"tmp-plug_" + x.id} contentEditable="true" onClick={() => {
+                                    <div id={"tmp-plug_" + x.id} onClick={() => {
                                         
                                         ;(x.click||(()=>{})) (go("tmp-plug_" + x.id), pro, refresh);
                                         
@@ -64,6 +72,15 @@ function create_plug(name, gui = [], template) {
                                     }} className={"plug-gui-button"}>
                                         <Img src={x.img} />
                                     </div>
+                                )
+                            } else if (x.type == "color") {
+                                salida = (
+                                    <input id={"tmp-plug_" + x.id} type="color" onChange={(t) => {
+                                        
+                                        pro[x.id] = go("tmp-plug_" + x.id).value;
+                                        refresh()
+                                        
+                                    }} className={"plug-gui-color"} value={x.color||"#ffffff"} />
                                 )
                             } else if (x.type == "image") {
                                 salida = (
@@ -107,22 +124,22 @@ function create_plug(name, gui = [], template) {
             }
         };
         refresh()
-        return [pro, Gui, refresh, gui, template]
+        return [pro, Gui, refresh, gui]
     };
     return salida
 }
 
 
-
 let plugins = {
     Project: create_plug("Proyecto", [
         Elements.textbox("name", "Titulo", projecto.name, false, false),
-        Elements.textbox("desc", "Descripcion", projecto.description, true, false),
+        Elements.textbox("desc", "Descripcion", projecto.description, true, true),
         Elements.image("img", "Portada", projecto.img),
-    ], {
-        
-    })
+        //Elements.color("color", "Fondo", projecto.bg||"#ffffff"),
+    ])
 };
+
+let loading = {};
 
 let proji = {};
 
