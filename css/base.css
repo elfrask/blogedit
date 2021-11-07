@@ -1,7 +1,25 @@
+@font-face {
+    font-family: "jet";
+    src: url("/src/font/jet.ttf");
+}
+
 * {
     padding: 0%;
     margin: 0%;
+    font-family: jet;
 }
+
+*::-webkit-scrollbar {
+    background-color: #ffffff33;
+    width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #ffffff66;
+    width: 8px;
+    border-radius: 5px;
+}
+
 
 .img {
     background-position: center;
@@ -14,11 +32,17 @@
     height: 100%;
 }
 
-.head {
+.head, .hedi {
     width: 100%;
     height: 50px;
     background-color: #334;
-    
+}
+
+.hedi {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
 }
 
 .body {
@@ -64,6 +88,11 @@
     float: left;
     border: none;
     
+}
+
+.fill {
+    width: 100%;
+    height: 100%;
 }
 .bt_head:hover, .plug-gui-button:hover {
     background-color: #556;
@@ -139,6 +168,20 @@ body {
     border-bottom: solid greenyellow 5px;
 }
 
+.plug-gui-textbox-input {
+    overflow: auto;
+    width: calc(100%);
+    height: 40px;
+    line-height: 20px;
+    padding: 10px;
+    background-color: #00000033;
+    border-bottom: solid greenyellow 5px;
+    color: white;
+    font-size: 14px;
+    resize: none;
+}
+
+
 .plug-gui-textbox-mul {
     height: max-content;
 }
@@ -200,7 +243,16 @@ body {
     background-color: #002;
 }
 
+.medio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 @media (orientation:portrait) {
+    .land {display: none;}
     .pro {
         width: 100%;
         z-index: -1;
@@ -218,6 +270,7 @@ body {
     }
 }
 @media (orientation:landscape) {
+    .port {display: none;}
     .pro {
         width: 300px;
     }

@@ -11,6 +11,35 @@ let genlink = (e) => {
     }
 };
 let loads_fin = [];
+let toArray = (t=[]) => {
+    let a = []; 
+    //console.log(t.length)
+    for (let i= 0; i < t.length; i++) {
+        a.push(t[i])
+    };
+
+    return a
+}
+function tohtml(str) {
+    var array = [];
+    
+    for (var i=str.length-1;i>=0;i--) {
+        if (str[i]===" ") {
+            array.unshift(['&nbsp'].join(''));
+        } else if (str[i]===tools.chars.N) {
+            array.unshift(['<br>'].join(''));
+        } else {
+            array.unshift(['&#', str[i].charCodeAt(), ';'].join(''));
+        }
+    }
+    return array.join('');
+}
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight+5)+"px";
+    element.style.overflow = "hidden"
+}
+let none = (()=>{});
 function setend(p) {
     loads_fin.push(p)
 }

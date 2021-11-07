@@ -18,8 +18,98 @@ let options = [
     create_option("/src/img/rich/underline.png", () => {
         document.execCommand("underline")
     }),
+    create_option("/src/img/rich/size.png", () => {
+        open_hedi((
+            <input 
+            id="tmp-range-up" 
+            type="range" 
+            className="fill" 
+            max="7" 
+            min="1" 
+            onChange={(e) => {
+                console.log(e.target.value)
+                document.execCommand("fontSize", false, parseInt(e.target.value))
+            }}/>
+        ), imagen("/src/img/rich/size.png", "30px"), () => {
+            go("tmp-range-up").value = "3"
+        })
+    }),
+    create_option("/src/img/rich/l.png", () => {
+        document.execCommand("justifyLeft")
+    }),
+    create_option("/src/img/rich/center.png", () => {
+        document.execCommand("justifyCenter")
+    }),
+    create_option("/src/img/rich/r.png", () => {
+        document.execCommand("justifyRight")
+    }),
+    create_option("/src/img/rich/justify.png", () => {
+        document.execCommand("justifyFull")
+    }),
+    create_option("/src/img/rich/color.png", (obj) => {
+        open_hedi(
+            <input type="color" className="fill" onChange={(e) => {
+                document.execCommand("foreColor", false, e.target.value)
+                obj.style.backgroundColor = e.target.value
+            }} />,
+            imagen("/src/img/rich/color.png", "30px")
+        )
+    }),
+    create_option("/src/img/rich/paletter.png", (obj) => {
+        open_hedi(
+            <input type="color" className="fill" onChange={(e) => {
+                document.execCommand("backColor", false, e.target.value)
+                obj.style.backgroundColor = e.target.value
+            }} />,
+            imagen("/src/img/rich/paletter.png", "30px")
+        )
+    }),
+    create_option("/src/img/rich/del.png", () => {
+        document.execCommand("removeFormat")
+    }),
+    create_option("/src/img/rich/paletter.png", (obj) => {
+        open_hedi(
+            <input type="color" className="fill" onChange={(e) => {
+                document.execCommand("backColor", false, e.target.value)
+                obj.style.backgroundColor = e.target.value
+            }} />,
+            imagen("/src/img/rich/color.png", "30px")
+        )
+    }),
+    
+    
+    
 ];
 
+function imagen(src, size) {
+    return(
+        <Img src={src} size={size}/>
+    )
+}
+
+function open_hedi(Gui, icon, call) {
+    
+    ReactDOM.render(
+        Gui,
+        go("hedi_gui"),
+        () => {
+            go("hedi").style.display="block";
+            (call||(() =>{}))()
+        }
+    )
+    ReactDOM.render(
+        icon,
+        go("img_hedi"),
+    )
+    
+}
+
+
+let prop = false;
+function show_hidden_prop() {
+    prop = !prop
+    go("propers").style.zIndex = (prop?"1":"-1")
+}
 
 class App extends React.Component {
     render() {
@@ -29,6 +119,29 @@ class App extends React.Component {
                     <div className="bt_head r" onClick={genlink(()=>open_gui(3))}>
                         <Img src={"/src/img/preferences.png"} size="30px" />
                     </div>
+                    <div className="bt_head r port" onClick={() => {
+                        show_hidden_prop()
+                    }}>
+                        <Img src={"/src/img/ops.png"} size="30px" />
+                    </div>
+                    
+                </div>
+                <div className="hedi" id="hedi" style={{display:"none"}}>
+                    <div className="bt_head l" onClick={() => go("hedi").style.display = "none"}>
+                        <Img src={"/src/img/rich/done.png"} size="30px" />
+                    </div>
+                    <div className="medio l" style={{
+                        width:"50px",
+                        height:"50px"
+                    }} id="img_hedi">
+
+                    </div>
+                    <div className="container l" id="hedi_gui" style={{
+                        backgroundColor:"#00000033",
+                        width:"calc(100% - 160px)",
+                    }}>
+
+                    </div>
                 </div>
                 <div className="body">
                     <div className="doc l">
@@ -36,7 +149,7 @@ class App extends React.Component {
 
                         </div>
                     </div>
-                    <div className="pro l">
+                    <div className="pro l" id="propers">
                         <div className="head" style={{backgroundColor:"#445"}}>
                             
                             {
@@ -72,19 +185,29 @@ class App extends React.Component {
                     </div>
                 </div>
                 <div id="keyrich" className="keyHelp rich">
-                    <div className="container rich" style={{
-                        backgroundColor:"#00000033"
+                    <div className="container rich keygui" id="richi" style={{
+                        backgroundColor:"#00000033",
+                        display:"block"
                     }}>
-                        {
-                            options.map(x=>{
-                                return(
-                                    <button className="bt_head rich" onClick={x.call}>
-                                        <Img src={x.img} size="25px" className="rich" />
-                                    </button>
-                                )
-                            })
-                        }
+                        <div 
+                        className="rich"
+                        style={{
+                            width:"max-content"
+                        }}
+                        >
+                            {
+                                options.map((x, y)=>{
+                                    return(
+                                        <button id={"keyhelp-" + y} className="bt_head rich" onClick={() => x.call(go("keyhelp-" + y))}>
+                                            <Img src={x.img} size="25px" className="rich" />
+                                        </button>
+                                    )
+                                })
+                            }
+
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         )
@@ -96,12 +219,15 @@ document.addEventListener("click", (e) => {
     let mod = e.target;
 
     while (true) {
+
         
-        if (mod.tagName!=="BODY") break
+        
+        if ([undefined, null].includes(mod.tagName)) return null
+        if (mod.tagName==="BODY") break
 
 
-        if (mod.tagName!=="DIV") {
-            console.log(mod)
+        if (mod.tagName==="DIV") {
+            //console.log(mod.classList)
             if (mod.classList.length===0) {
                 mod = mod.parentNode
                 
@@ -115,7 +241,7 @@ document.addEventListener("click", (e) => {
         }
     }
 
-    console.log(mod)
+    //console.log(mod)
 
     let targ = (
         mod.className.match("plug-gui-textbox-rich")||
@@ -123,13 +249,35 @@ document.addEventListener("click", (e) => {
         mod.className.match("keyboard-gui")
     );
 
-    //console.log(targ)
+    let ro = toArray(document.getElementsByClassName("rich-open"));
+    let kg = toArray(document.getElementsByClassName("keygui"));
+    //console.log(ro)
 
+    let cgui = mod.className.match("rich");
 
     if(targ) {
         go("keyrich").style.height = "max-content";
+        
+        ro.forEach(x=>{
+            x.style.display ="block"
+        })
+
+        if (!cgui) {
+            kg.forEach(x=>{
+                x.style.display = "none"
+            });
+
+            go("richi").style.display = "block"
+
+        }
+        
     } else {
         go("keyrich").style.height = "0px";
+        ro.forEach(x=> {
+            x.style.display = "none";
+
+        })
+        
     }
 
 })

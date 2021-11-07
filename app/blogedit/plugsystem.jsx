@@ -37,30 +37,73 @@ function create_plug(name, gui = [], extend= []) {
                             let salida = []
                             //console.log(x)
                             if (x.type == "textbox") {
-                                
-                                salida = (
-                                    <div id={"tmp-plug_" + x.id} contentEditable="true"  onKeyUp={() => {
-                                        let pop = go("tmp-plug_" + x.id)
-                                        if (x.rich) {
-                                            pro[x.id] = {
-                                                text:pop.innerText,
-                                                rich:pop.innerHTML
-                                            };
-                                        } else {
-                                            pro[x.id] = pop.innerText;
-                                        }
-                                        //console.log(pop.innerText)
-                                        refresh()
-                                    }} className={"plug-gui-textbox " + 
-                                    (x.mul?"plug-gui-textbox-mul":"") + " " +
-                                    (x.rich?"plug-gui-textbox-rich":"")
-                                    }>
-                                        {pro[x.id]||x.text||""}
-                                    </div>
-                                )
+
+                                let press = () => {
+                                    let pop = go("tmp-plug_" + x.id)
+                                    if (x.rich) {
+                                        pro[x.id] = pop.innerHTML
+                                        /*{
+                                            text:pop.innerText,
+                                            rich:pop.innerHTML
+                                        };*/
+                                    } else {
+                                        pro[x.id] = pop.value;
+                                    }
+                                    //console.log(pop.innerText)
+                                    refresh()
+                                };
+
+                                if (x.rich) {
+                                    salida = (
+                                        <div id={"tmp-plug_" + x.id} contentEditable="true"  onKeyUp={press} 
+                                        className={"plug-gui-textbox " + 
+                                        (x.mul?"plug-gui-textbox-mul":"") + " " +
+                                        (x.rich?"plug-gui-textbox-rich":"")
+                                        } dangerouslySetInnerHTML={{
+                                            __html:(pro[x.id]||tohtml(x.text)||"")
+                                        }} style={{
+                                            lineHeight:"normal"
+                                        }}>
+                                           
+                                        </div>
+                                    )
+                                    
+                                } else {
+                                    if (x.mul) {
+                                        salida=(
+                                            <textarea onKeyUp={() => {press()}}
+                                            onInput={(e) => {
+                                                auto_grow(e.target)
+                                            }}
+                                            style={{
+                                                height:"45px"
+                                            }}
+                                            id={"tmp-plug_" + x.id}
+                                            className={"plug-gui-textbox-input " + 
+                                            (x.mul?"plug-gui-textbox-mul":"") + " " +
+                                            (x.rich?"plug-gui-textbox-rich":"")
+                                            }>
+                                                {(pro[x.id]||(x.text)||"")}
+                                            </textarea>
+                                        )
+                                    } else {
+                                        
+                                        salida = (
+                                            <input onKeyUp={press} id={"tmp-plug_" + x.id}
+                                            className={"plug-gui-textbox-input " + 
+                                            (x.mul?"plug-gui-textbox-mul":"") + " " +
+                                            (x.rich?"plug-gui-textbox-rich":"")
+                                            }
+                                            type="text" 
+                                            defaultValue={(pro[x.id]||(x.text)||"")}
+                                            />
+                                        )
+                                    }
+
+                                }
                             } else if (x.type == "button") {
                                 salida = (
-                                    <div id={"tmp-plug_" + x.id} onClick={() => {
+                                    <button id={"tmp-plug_" + x.id} onClick={() => {
                                         
                                         ;(x.click||(()=>{})) (go("tmp-plug_" + x.id), pro, refresh);
                                         
@@ -71,7 +114,7 @@ function create_plug(name, gui = [], extend= []) {
                                         }
                                     }} className={"plug-gui-button"}>
                                         <Img src={x.img} />
-                                    </div>
+                                    </button>
                                 )
                             } else if (x.type == "color") {
                                 salida = (
@@ -118,7 +161,9 @@ function create_plug(name, gui = [], extend= []) {
                                 </div>
                             )
                         })}
+                        <div className="fill rich-open" id="rich-open">
 
+                        </div>
                     </div>
                 )
             }
