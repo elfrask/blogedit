@@ -203,6 +203,19 @@ body {
     color: gold
 }
 
+.text-gui-up{
+    overflow: auto;
+    width: calc(100%);
+    height: 40px;
+    line-height: 20px;
+    padding: 10px;
+    background-color: #00000033;
+    border-bottom: solid greenyellow 5px;
+    color: white;
+    font-size: 14px;
+    resize: none;
+}
+
 .keyHelp {
     position: fixed;
     z-index: 1;

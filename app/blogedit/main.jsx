@@ -67,16 +67,24 @@ let options = [
     create_option("/src/img/rich/del.png", () => {
         document.execCommand("removeFormat")
     }),
-    create_option("/src/img/rich/paletter.png", (obj) => {
+    create_option("/src/img/rich/link.png", (obj) => {
         open_hedi(
-            <input type="color" className="fill" onChange={(e) => {
-                document.execCommand("backColor", false, e.target.value)
-                obj.style.backgroundColor = e.target.value
-            }} />,
-            imagen("/src/img/rich/color.png", "30px")
+            <input type="text" className="fill text-gui-up" id="tmp-gui-up-link" />,
+            imagen("/src/img/rich/link.png", "30px"),
+            none,
+            () => {
+                let pop = go("tmp-gui-up-link");
+                let link = pop.value
+                document.execCommand("createLink", false, link)
+                document.execCommand("foreColor", false, "orange")
+            }
         )
     }),
-    
+    create_option("/src/img/rich/unlink.png", () => {
+        document.execCommand("unlink");
+        document.execCommand("removeFormat");
+        document.execCommand("fontSize", false, 3)
+    })
     
     
 ];
@@ -87,8 +95,15 @@ function imagen(src, size) {
     )
 }
 
-function open_hedi(Gui, icon, call) {
+let hedi_done = none;
+
+function open_hedi(Gui, icon, call, hedi_call) {
     
+    hedi_done = () => {
+        (hedi_call||none)();
+        hedi_done = none;
+    }
+
     ReactDOM.render(
         Gui,
         go("hedi_gui"),
@@ -127,9 +142,12 @@ class App extends React.Component {
                     
                 </div>
                 <div className="hedi" id="hedi" style={{display:"none"}}>
-                    <div className="bt_head l" onClick={() => go("hedi").style.display = "none"}>
+                    <button className="bt_head l" onClick={(e) => {
+                        go("hedi").style.display = "none"
+                        hedi_done(e)
+                    }}>
                         <Img src={"/src/img/rich/done.png"} size="30px" />
-                    </div>
+                    </button>
                     <div className="medio l" style={{
                         width:"50px",
                         height:"50px"
