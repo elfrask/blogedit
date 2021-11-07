@@ -177,7 +177,11 @@ class App extends React.Component {
                                     ["/src/img/project.png", () => open_gui(2)],
                                 ]).map(x=> {
                                     return(
-                                        <div className="bt_head" onClick={genlink(x[1])}>
+                                        <div className="bt_head"
+                                        style={{
+                                            width:"33.33333333333%"
+                                        }} 
+                                        onClick={genlink(x[1])}>
                                             <Img src={x[0]} size="30px" />
                                         </div>
                                     )
