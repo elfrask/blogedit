@@ -32,14 +32,19 @@ function open(p) {
 //app.use(bp.urlencoded({extended:true}));
 //app.use(bp.json());
 //app.use(galleta(["vine", "code", "app"]));
-app.get("/", (req, res) => {
+app.get("/blogedit", (req, res) => {
     res.send(
         open("./html/template.html").react("Blogedit", [
             "/app/blogedit/guis.jsx",
             "/app/blogedit/plugsystem.jsx",
-            "/app/blogedit/plugins.jsx",
             "/app/blogedit/main.jsx",
         ])
+    )
+});
+
+app.get("/", (req, res) => {
+    res.send(
+        open("./html/test.html").read()
     )
 });
 

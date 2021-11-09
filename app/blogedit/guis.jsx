@@ -3,8 +3,19 @@ let projecto = {
     name:"Sin Titulo",
     description:"",
     img:"",
-    data:[],
-    
+    data:"",
+};
+
+let engine = {
+    save: () => {
+        projecto.data = go("doc").innerHTML
+        console.log(window.save)
+        
+        ;(window.save||none)(projecto);
+    },
+    onsave:(e) => {
+        window.save = e 
+    }
 }
 
 
@@ -77,22 +88,17 @@ function open_propertys(pro, Gui, callback) {
     )
 }
 
-
-function render_project_tree() {
-    ReactDOM.render(
-        <Nodo title={"Project: " + projecto.name} click={() => {
-            open_propertys(proji[0], proji[1], () => {})
-        }}>
-            {projecto.data.map(x=> {
-
-            })}
-        </Nodo>,
-        go("tree_proj"),
-        () => {}
-    )
+function op_f(name, call) {
+    return {
+        name:name,
+        call:call
+    }
 }
 
-
+let op_file = [
+    op_f("Guardar", () => engine.save()),
+    op_f("Publicar", () => engine.save()),
+]
 
 class Project_gui extends React.Component {
     render() {
@@ -101,10 +107,43 @@ class Project_gui extends React.Component {
                 backgroundColor:"#00000055",
                 overflowX:"hidden"
             }}>
+                {op_file.map(x=>{
 
-                
-                
+                    return(
+                        <div className="bt_head" onClick={x.call} style={{
+                            width:"100%"
+                        }}>
+                            {x.name}
+                        </div>
+                    )
+                })}
             </div>
         )
     }
 }
+
+class Info_gui extends React.Component {
+    render() {
+        return (
+            <div className="container" style = {{
+                backgroundColor:"#00000055",
+                overflowX:"hidden",
+                padding:"10px",
+                width:"calc(100% - 20px)",
+                height:"calc(100% - 20px)",
+            }}>
+                Blogedit es un editor/CMS basico hecho para el 
+                desarrollo de la informacion para personas externas
+                o internas al equipo.
+                <br />
+                <br />
+                Autor: <a href="https://portafolio.frask.repl.co">Frask Dreemurr</a>  
+                <br />
+                Version: 1.0
+            </div>
+        )
+    }
+}
+
+let pos_doc = [];
+

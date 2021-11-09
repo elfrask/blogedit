@@ -43,6 +43,19 @@ let none = (()=>{});
 function setend(p) {
     loads_fin.push(p)
 }
+
+function createHTML(tag, pro) {
+    let salida = document.createElement(tag||"div");
+    asi(salida, pro||{})
+    salida.child = (...childs) => {
+        childs.forEach(x=> {
+            salida.appendChild(x)
+        })
+        return salida
+    };
+    return salida
+}
+
 let range = (
     (i, f, step) =>  
     {i=i||0;f=f||1;step=step||1;let out=[];

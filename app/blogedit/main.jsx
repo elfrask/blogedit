@@ -67,6 +67,17 @@ let options = [
     create_option("/src/img/rich/del.png", () => {
         document.execCommand("removeFormat")
     }),
+    create_option("/src/img/rich/img.png", () => {
+        tools.LoadImageFromFile().then(x=>{
+            document.execCommand(
+                "insertHTML", 
+                false, 
+                `<img src="${x}" width="400px" height="400px">`
+            );
+            document.execCommand("justifyCenter")
+            
+        })
+    }),
     create_option("/src/img/rich/link.png", (obj) => {
         open_hedi(
             <input type="text" className="fill text-gui-up" id="tmp-gui-up-link" />,
@@ -88,6 +99,8 @@ let options = [
     
     
 ];
+
+
 
 function imagen(src, size) {
     return(
@@ -131,9 +144,10 @@ class App extends React.Component {
         return (
             <div className="fill">
                 <div className="head">
-                    <div className="bt_head r" onClick={genlink(()=>open_gui(3))}>
-                        <Img src={"/src/img/preferences.png"} size="30px" />
+                    <div className="bt_head l" onClick={engine.save}>
+                        <Img src={"/src/img/save.png"} size="30px" />
                     </div>
+
                     <div className="bt_head r port" onClick={() => {
                         show_hidden_prop()
                     }}>
@@ -163,8 +177,11 @@ class App extends React.Component {
                 </div>
                 <div className="body">
                     <div className="doc l">
-                        <div className="documento" id="doc">
-
+                        <div className="documento rich" contentEditable="true" id="doc" onKeyUp={(e) => {
+                            projecto.data = e.target.innerHTML;
+                            console.log("cambio")
+                        }}>
+                            
                         </div>
                     </div>
                     <div className="pro l" id="propers">
@@ -172,9 +189,9 @@ class App extends React.Component {
                             
                             {
                                 ([
-                                    ["/src/img/project.png", () => {open_gui(0); render_project_tree()}],
-                                    ["/src/img/config.png", () => open_gui(1)],
-                                    ["/src/img/project.png", () => open_gui(2)],
+                                    ["/src/img/config.png", () => open_gui(0)],
+                                    ["/src/img/project.png", () => open_gui(1)],
+                                    ["/src/img/info.png", () => open_gui(2)],
                                 ]).map(x=> {
                                     return(
                                         <div className="bt_head"
@@ -188,12 +205,11 @@ class App extends React.Component {
                                 })
                             }
                         </div>
-                        <div className="body" style={{backgroundColor:"transparent"}}>
+                        <div className="body-base" style={{backgroundColor:"transparent"}}>
                             {([
+                                ["arg"],
                                 ["proj", Project_gui], 
-                                ["arg"], 
-                                ["script"], 
-                                ["conf"]
+                                ["pre", Info_gui],
                             ]).map(x=>{
                                 screens.push(x[0])
                                 let Ren = x[1]||(()=><div/>)
@@ -238,6 +254,7 @@ class App extends React.Component {
 
 
 document.addEventListener("click", (e) => {
+    return false
     let mod = e.target;
 
     while (true) {
@@ -304,13 +321,20 @@ document.addEventListener("click", (e) => {
 
 })
 
+function reload(p) {
+    projecto = p||projecto;
+
+    main_pro();
+    go("")
+}
+
 ReactDOM.render(
     <App></App>,
     go("__body__"),
     () => {
         screens = screens.map(x=>go(x))
         open_gui(0);
-        render_project_tree();
+        
         loads_fin.forEach(x=>x())
     }
 )

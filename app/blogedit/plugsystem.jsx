@@ -1,19 +1,16 @@
-function set_plug(name, plug) {
-    plugins[name] = plug
+function set_plug(plug) {
+    plugins[plug.name] = plug
 };
 
 let Elements = {
     textbox:(id, desc, text, multiline, rich) => ({id:id, text:text, mul:multiline||false, rich:rich||false, type:"textbox", desc:desc}),
     button:(id, desc, img, click) => ({id:id, click:click, type:"button", img:img, desc:desc}),
     image:(id, desc, img) => ({type:"image", id:id, img:img, desc:desc}),
-    color:(id, desc, color) => ({type:"color", id:id, desc:desc, color:color})
+    color:(id, desc, color) => ({type:"color", id:id, desc:desc, color:color}),
 }
 
 
-function create_plug(name, gui = [], extend= []) {
-    let mac = (extend||[]).map(x=>x);
-    gui.map(x=>mac.push(x));
-    gui = mac;
+function create_plug(name, gui = [], gen=none) {
     
 
     let salida = (pr, callback) => {
@@ -161,36 +158,46 @@ function create_plug(name, gui = [], extend= []) {
                                 </div>
                             )
                         })}
-                        <div className="fill rich-open" id="rich-open">
-
-                        </div>
+                        
                     </div>
                 )
             }
         };
         refresh()
-        return [pro, Gui, refresh, gui]
+        return {
+            pro:pro,
+            Gui:Gui,
+            update:refresh,
+            template:gui,
+            name:name,
+            generator:gen,
+            onChange:callback
+        }
     };
-    return salida
+    return({
+        name:name,
+        template:gui,
+        generator:gen,
+        create:salida
+    })
 }
 
-
-let plugins = {
-    Project: create_plug("Proyecto", [
-        Elements.textbox("name", "Titulo", projecto.name, false, false),
-        Elements.textbox("desc", "Descripcion", projecto.description, true, true),
-        Elements.image("img", "Portada", projecto.img),
-        //Elements.color("color", "Fondo", projecto.bg||"#ffffff"),
-    ])
-};
+let VoidPlug = create_plug("void", [], []);
 
 let loading = {};
 
-let proji = {};
+let proji = VoidPlug.create();
+
+let ProjectTemplate = create_plug("Entrada", [
+    Elements.textbox("name", "Titulo", projecto.name, false, false),
+    Elements.textbox("desc", "Descripcion", projecto.description, true, false),
+    Elements.image("img", "Portada", projecto.img),
+    
+])
 
 function main_pro() {
     
-    proji = plugins.Project({
+    proji = ProjectTemplate.create({
         name:projecto.name,
         desc:projecto.description,
         img:projecto.img,
@@ -207,7 +214,15 @@ function main_pro() {
     });
 
     document.title = `Blogedit: ${projecto.name}`;
-    render_project_tree()
+
+    ReactDOM.render(
+        <proji.Gui/>,
+        go("arg"),
+        () => {
+            //go("doc").innerHTML = projecto.data
+        }
+    );
+
 };
 
 setend(main_pro)

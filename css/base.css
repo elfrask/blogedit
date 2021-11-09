@@ -7,6 +7,7 @@
     padding: 0%;
     margin: 0%;
     font-family: jet;
+    
 }
 
 *::-webkit-scrollbar {
@@ -47,11 +48,20 @@
 
 .body {
     width: 100%;
+    height: calc(100% - 50px - 77px);
+    background-color: #223;
+    transition: 0.4s;
+    
+}
+
+.body-base {
+    width: 100%;
     height: calc(100% - 50px);
     background-color: #223;
     transition: 0.4s;
     
 }
+
 
 .body:hover {
     
@@ -62,6 +72,7 @@
     height: 100%;
     display: flex;
     justify-content: center;
+    overflow: auto;
 }
 .pro {
     height: 100%;
@@ -70,9 +81,10 @@
 .documento {
     width: 100%;
     max-width: 600px;
-    min-height: 100px;
     height: max-content;
     background-color: #446;
+    padding: 20px;
+    color: white;
 }
 
 .bt_head, .plug-gui-button {
@@ -175,12 +187,28 @@ body {
     line-height: 20px;
     padding: 10px;
     background-color: #00000033;
+    border: none;
     border-bottom: solid greenyellow 5px;
     color: white;
     font-size: 14px;
     resize: none;
 }
 
+.block-doc {
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-doc-gui {
+    width: 100%;
+    max-width: 400px;
+    height: 200px;
+    background-color: #223;
+}
 
 .plug-gui-textbox-mul {
     height: max-content;
@@ -216,6 +244,16 @@ body {
     resize: none;
 }
 
+.tag-img {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: calc(100% - 40px);
+    height: calc(100vw * 0.30);
+    background-color: #335;
+    image-rendering: pixelated;
+}
+
 .keyHelp {
     position: fixed;
     z-index: 1;
@@ -223,7 +261,7 @@ body {
     width: 100%;
     background-color: #334;
     transition: 0.4s;
-    height: 0px;
+    height: 77px;
 }
 .keyHelp .container {
     display: flex;
@@ -280,6 +318,7 @@ body {
         margin-top: 0%;
         margin-bottom: 0%;
         max-width: 100%;
+        min-height: calc(100% - 40px);
     }
 }
 
@@ -294,8 +333,10 @@ body {
         padding-right: 20px;
     }
     .documento {
-        margin-top: 100px;
-        margin-bottom: 100px;
-        border-radius: 10px;
+        min-height: calc(100% - 140px);
+        margin-top: 50px;
+        margin-bottom: 50px;
+        border-radius: 0px;
+
     }
 }
