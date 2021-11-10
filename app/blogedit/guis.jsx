@@ -9,13 +9,22 @@ let projecto = {
 let engine = {
     save: () => {
         projecto.data = go("doc").innerHTML
-        console.log(window.save)
+        //console.log(window.save)
         
         ;(window.save||none)(projecto);
     },
-    onsave:(e) => {
-        window.save = e 
-    }
+    close: () => {
+        projecto.data = go("doc").innerHTML
+        //console.log(window.save)
+        
+        ;(window.closer||none)(projecto);
+    },
+    public: () => {
+        projecto.data = go("doc").innerHTML
+        //console.log(window.save)
+        
+        ;(window.public||none)(projecto);
+    },
 }
 
 
@@ -97,7 +106,8 @@ function op_f(name, call) {
 
 let op_file = [
     op_f("Guardar", () => engine.save()),
-    op_f("Publicar", () => engine.save()),
+    op_f("Publicar", () => engine.public()),
+    op_f("Cerrar", () => engine.close()),
 ]
 
 class Project_gui extends React.Component {

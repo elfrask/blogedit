@@ -147,6 +147,10 @@ class App extends React.Component {
                     <div className="bt_head l" onClick={engine.save}>
                         <Img src={"/src/img/save.png"} size="30px" />
                     </div>
+                    <div className="bt_head l" onClick={engine.close}>
+                        <Img src={"/src/img/close.png"} size="30px" />
+                    </div>
+                    
 
                     <div className="bt_head r port" onClick={() => {
                         show_hidden_prop()
