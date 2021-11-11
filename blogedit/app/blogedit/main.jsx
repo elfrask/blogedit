@@ -9,16 +9,16 @@ let open_gui = (gui) => {
 let create_option = (img, call) => ({img:img, call:call})
 
 let options = [
-    create_option("/src/img/rich/bold.png", () => {
+    create_option("src/img/rich/bold.png", () => {
         document.execCommand("bold")
     }),
-    create_option("/src/img/rich/italic.png", () => {
+    create_option("src/img/rich/italic.png", () => {
         document.execCommand("italic")
     }),
-    create_option("/src/img/rich/underline.png", () => {
+    create_option("src/img/rich/underline.png", () => {
         document.execCommand("underline")
     }),
-    create_option("/src/img/rich/size.png", () => {
+    create_option("src/img/rich/size.png", () => {
         open_hedi((
             <input 
             id="tmp-range-up" 
@@ -30,55 +30,55 @@ let options = [
                 console.log(e.target.value)
                 document.execCommand("fontSize", false, parseInt(e.target.value))
             }}/>
-        ), imagen("/src/img/rich/size.png", "30px"), () => {
+        ), imagen("src/img/rich/size.png", "30px"), () => {
             go("tmp-range-up").value = "3"
         })
     }),
-    create_option("/src/img/rich/l.png", () => {
+    create_option("src/img/rich/l.png", () => {
         document.execCommand("justifyLeft")
     }),
-    create_option("/src/img/rich/center.png", () => {
+    create_option("src/img/rich/center.png", () => {
         document.execCommand("justifyCenter")
     }),
-    create_option("/src/img/rich/r.png", () => {
+    create_option("src/img/rich/r.png", () => {
         document.execCommand("justifyRight")
     }),
-    create_option("/src/img/rich/justify.png", () => {
+    create_option("src/img/rich/justify.png", () => {
         document.execCommand("justifyFull")
     }),
-    create_option("/src/img/rich/color.png", (obj) => {
+    create_option("src/img/rich/color.png", (obj) => {
         open_hedi(
             <input type="color" className="fill" onChange={(e) => {
                 document.execCommand("foreColor", false, e.target.value)
                 obj.style.backgroundColor = e.target.value
             }} />,
-            imagen("/src/img/rich/color.png", "30px")
+            imagen("src/img/rich/color.png", "30px")
         )
     }),
-    create_option("/src/img/rich/paletter.png", (obj) => {
+    create_option("src/img/rich/paletter.png", (obj) => {
         open_hedi(
             <input type="color" className="fill" onChange={(e) => {
                 document.execCommand("backColor", false, e.target.value)
                 obj.style.backgroundColor = e.target.value
             }} />,
-            imagen("/src/img/rich/paletter.png", "30px")
+            imagen("src/img/rich/paletter.png", "30px")
         )
     }),
-    create_option("/src/img/rich/del.png", () => {
+    create_option("src/img/rich/del.png", () => {
         document.execCommand("removeFormat")
     }),
-    create_option("/src/img/rich/img.png", () => {
+    create_option("src/img/rich/img.png", () => {
         tools.LoadImageFromFile().then(x=>{
             document.execCommand(
                 "insertHTML", 
                 false, 
-                `<img src="${x}" width="400px" height="400px">`
+                `<img src="${x}" width="100%" height="400px">`
             );
             document.execCommand("justifyCenter")
             
         })
     }),
-    create_option("/src/img/rich/link.png", (obj) => {
+    create_option("src/img/rich/link.png", (obj) => {
         open_hedi(
             <input type="text" className="fill text-gui-up" id="tmp-gui-up-link" />,
             imagen("/src/img/rich/link.png", "30px"),
@@ -91,7 +91,7 @@ let options = [
             }
         )
     }),
-    create_option("/src/img/rich/unlink.png", () => {
+    create_option("src/img/rich/unlink.png", () => {
         document.execCommand("unlink");
         document.execCommand("removeFormat");
         document.execCommand("fontSize", false, 3)
@@ -145,17 +145,17 @@ class App extends React.Component {
             <div className="fill">
                 <div className="head">
                     <div className="bt_head l" onClick={engine.save}>
-                        <Img src={"/src/img/save.png"} size="30px" />
+                        <Img src={"src/img/save.png"} size="30px" />
                     </div>
                     <div className="bt_head l" onClick={engine.close}>
-                        <Img src={"/src/img/close.png"} size="30px" />
+                        <Img src={"src/img/close.png"} size="30px" />
                     </div>
                     
 
                     <div className="bt_head r port" onClick={() => {
                         show_hidden_prop()
                     }}>
-                        <Img src={"/src/img/ops.png"} size="30px" />
+                        <Img src={"src/img/ops.png"} size="30px" />
                     </div>
                     
                 </div>
@@ -164,7 +164,7 @@ class App extends React.Component {
                         go("hedi").style.display = "none"
                         hedi_done(e)
                     }}>
-                        <Img src={"/src/img/rich/done.png"} size="30px" />
+                        <Img src={"src/img/rich/done.png"} size="30px" />
                     </button>
                     <div className="medio l" style={{
                         width:"50px",
@@ -193,9 +193,9 @@ class App extends React.Component {
                             
                             {
                                 ([
-                                    ["/src/img/config.png", () => open_gui(0)],
-                                    ["/src/img/project.png", () => open_gui(1)],
-                                    ["/src/img/info.png", () => open_gui(2)],
+                                    ["src/img/config.png", () => open_gui(0)],
+                                    ["src/img/project.png", () => open_gui(1)],
+                                    ["src/img/info.png", () => open_gui(2)],
                                 ]).map(x=> {
                                     return(
                                         <div className="bt_head"

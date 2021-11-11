@@ -1,6 +1,6 @@
 @font-face {
     font-family: "jet";
-    src: url("/src/font/jet.ttf");
+    src: url("../src/font/jet.ttf");
 }
 
 * {

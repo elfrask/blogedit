@@ -8,22 +8,15 @@ let projecto = {
 
 let engine = {
     save: () => {
-        projecto.data = go("doc").innerHTML
-        //console.log(window.save)
-        
-        ;(window.save||none)(projecto);
+        events.save(projecto);
     },
     close: () => {
-        projecto.data = go("doc").innerHTML
-        //console.log(window.save)
+        events.close(projecto);
         
-        ;(window.closer||none)(projecto);
     },
     public: () => {
-        projecto.data = go("doc").innerHTML
-        //console.log(window.save)
+        events.public(projecto);
         
-        ;(window.public||none)(projecto);
     },
 }
 
