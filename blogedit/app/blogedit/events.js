@@ -1,10 +1,21 @@
-let none = (() => {});
+var none = (() => {});
 
 let on = {
-    save:() => {
-
+    save:(e) => {
+        events.save = e
+    },
+    public:(e) => {
+        events.public = e
+    },
+    close:(e) => {
+        events.close = e
+    },
+    load:(e) => {
+        events.load = e
     }
 };
+
+window.on = on;
 
 let events = {
     save: (e) => {
@@ -16,4 +27,7 @@ let events = {
     close: () => {
         console.log("Closed app")
     },
+    load:() => {
+        console.log("load end")
+    }
 }

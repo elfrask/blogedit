@@ -124,13 +124,18 @@ function create_plug(name, gui = [], gen=none) {
                                 )
                             } else if (x.type == "image") {
                                 salida = (
-                                    <div id={"tmp-plug_" + x.id} className="plug-gui-image" onClick={() => {
+                                    <div id={"tmp-plug_" + x.id} className="plug-gui-image" 
+                                    style={{
+                                        backgroundImage:`url('${pro.img}')`
+                                    }}
+                                    onClick={() => {
                                         let pop = go("tmp-plug_" + x.id);
                                         tools.LoadImageFromFile().then(t=> {
                                             pop.style.backgroundImage = `url('${t}')`;
 
                                             pro[x.id] = t;
                                             //console.log("cargado")
+                                            refresh()
                                             
                                         }).catch(t=>{
                                             //console.log("error")
@@ -219,7 +224,7 @@ function main_pro() {
         <proji.Gui/>,
         go("arg"),
         () => {
-            //go("doc").innerHTML = projecto.data
+            go("doc").innerHTML = projecto.data
         }
     );
 

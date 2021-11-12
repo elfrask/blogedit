@@ -39,7 +39,7 @@ function auto_grow(element) {
     element.style.height = (element.scrollHeight+5)+"px";
     element.style.overflow = "hidden"
 }
-let none = (()=>{});
+var none = (()=>{});
 function setend(p) {
     loads_fin.push(p)
 }

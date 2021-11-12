@@ -8,6 +8,7 @@ let projecto = {
 
 let engine = {
     save: () => {
+        projecto.data = go("doc").innerHTML
         events.save(projecto);
     },
     close: () => {

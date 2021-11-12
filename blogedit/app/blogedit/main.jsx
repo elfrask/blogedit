@@ -340,5 +340,15 @@ ReactDOM.render(
         open_gui(0);
         
         loads_fin.forEach(x=>x())
+        events.load({
+            events:events,
+            project:projecto,
+            load:(e) => {
+                e=e||{};
+                asi(projecto, e);
+                console.log(projecto)
+                main_pro();
+            }
+        })
     }
 )
