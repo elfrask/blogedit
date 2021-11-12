@@ -194,7 +194,7 @@ let loading = {};
 let proji = VoidPlug.create();
 
 let ProjectTemplate = create_plug("Entrada", [
-    Elements.textbox("name", "Titulo", projecto.name, false, false),
+    Elements.textbox("title", "Titulo", projecto.title, false, false),
     Elements.textbox("desc", "Descripcion", projecto.description, true, false),
     Elements.image("img", "Portada", projecto.img),
     
@@ -203,22 +203,22 @@ let ProjectTemplate = create_plug("Entrada", [
 function main_pro() {
     
     proji = ProjectTemplate.create({
-        name:projecto.name,
+        title:projecto.title,
         desc:projecto.description,
         img:projecto.img,
-        bg:projecto.bg
+        //bg:projecto.bg
     }, (pro) => {
         let pop = go("doc");
         //console.log(pop, pro)
         pop.style.backgroundColor = pro.color;
-        projecto.bg = pro.color;
-        projecto.name = pro.name;
+        //projecto.bg = pro.color;
+        projecto.title = pro.title;
         projecto.img = pro.img;
         projecto.description = pro.desc;
-        document.title = `Blogedit: ${projecto.name}`
+        document.title = `Blogedit: ${projecto.title}`
     });
 
-    document.title = `Blogedit: ${projecto.name}`;
+    document.title = `Blogedit: ${projecto.title}`;
 
     ReactDOM.render(
         <proji.Gui/>,

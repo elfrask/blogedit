@@ -1,6 +1,6 @@
 
 let projecto = {
-    name:"Sin Titulo",
+    title:"Sin Titulo",
     description:"",
     img:"",
     data:"",
@@ -102,6 +102,26 @@ let op_file = [
     op_f("Guardar", () => engine.save()),
     op_f("Publicar", () => engine.public()),
     op_f("Cerrar", () => engine.close()),
+    op_f("Abrir Archivo", () => {
+        tools.LoadFile("*.json").then(x=>{
+            x.text().then(s=>{
+                let load = JSON.parse(s);
+
+                projecto = load;
+                //console.log(s)
+                main_pro()
+            })
+        })
+    }),
+    op_f("Guardar como Archivo", () => {
+        projecto.data = go("doc").innerHTML;
+        tools.SaveFile(JSON.stringify(projecto), projecto.title+".json")
+    }),
+    op_f("Exportar como HTML5", () => {
+        projecto.data = go("doc").innerHTML;
+        tools.SaveFile(projecto.data, projecto.title+".html")
+    }),
+    
 ]
 
 class Project_gui extends React.Component {
@@ -141,7 +161,8 @@ class Info_gui extends React.Component {
                 o internas al equipo.
                 <br />
                 <br />
-                Autor: <a href="https://portafolio.frask.repl.co">Frask Dreemurr</a>  
+                Autor: <a href="https://portafolio.frask.repl.co"
+                style={{color:"gold"}}>Frask Dreemurr</a>  
                 <br />
                 Version: 1.0
             </div>

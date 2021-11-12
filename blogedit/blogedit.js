@@ -65,10 +65,12 @@ let Blogedit = {
             }},
             onload:(e) => {events.load = e},
             open:{
-                win:() => {
+                win:(win) => {
                     if (me.active) return undefined;
                     me.active = true;
-                    let frame = open(me.url);
+                    let frame 
+                    if (win) frame = open(me.url, "blogedit", "lol=0");
+                    else frame = open(me.url)
                     frame.addEventListener("load", () => {
                         let win = frame.window;
                         win.on.save(events.save);

@@ -110,7 +110,84 @@ let tools = {
         
 
         file.click()
-    })
+    }),
+    LoadFile:(filter) => new Promise((res, err) => {
+        let file = document.createElement("input")
+        file.type = "file";
+        file.accept = filter||"*";
+        file.style.display = "none"
+        document.body.appendChild(file)
+        //file.onchange = () => {console.log("cambio")}
+        
+        file.addEventListener("change", (t) => {
+            let fit = file.files[0];
+            
+            //console.log("llego")
+            
+            let modo = {
+                text:() => new Promise((re, er) => {
+                    
+                    let read = new FileReader();
+                    read.addEventListener("loadend", () => {
+                        re(read.result)
+                        file.remove()
+                    });
+                    read.addEventListener("error", err)
+                    read.readAsText(fit)
+                    
+                }),
+                data:() => new Promise((re, er) => {
+                    
+                    let read = new FileReader();
+                    read.addEventListener("loadend", () => {
+                        re(read.result)
+                        file.remove()
+                    });
+                    read.addEventListener("error", err)
+                    read.readAsDataURL(fit)
+
+                }),
+            };
+
+            res(modo)
+
+        });
+        
+
+        file.click()
+    }),
+    SaveFile:(data, name, isdata) => {
+        
+        function download(dat) {
+            let save = document.createElement("a");
+            save.href = dat;
+            save.download = name;
+            
+            let clicker = new MouseEvent("click", {
+                view:window,
+                bubbles:true,
+                cancelable:true
+            });
+
+            save.dispatchEvent(clicker);
+
+            if (!isdata) {
+                (window.URL || window.webkitURL).revokeObjectURL(save.href)
+            }
+        };
+        
+        if (isdata) {
+            download(data)
+        } else {
+            let b = new Blob([data], {type:"text/plain"});
+            let reader = new FileReader();
+
+            reader.addEventListener("load", (e) => {
+                download(e.target.result)
+            });
+            reader.readAsDataURL(b)
+        }
+    }
 }
 
 

@@ -346,7 +346,7 @@ ReactDOM.render(
             load:(e) => {
                 e=e||{};
                 asi(projecto, e);
-                console.log(projecto)
+                //console.log(projecto)
                 main_pro();
             }
         })
