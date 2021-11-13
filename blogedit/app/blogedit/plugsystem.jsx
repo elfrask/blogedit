@@ -224,7 +224,14 @@ function main_pro() {
         <proji.Gui/>,
         go("arg"),
         () => {
-            go("doc").innerHTML = projecto.data
+        	go("doc").innerHTML = projecto.data;
+            let g = document.getElementsByTagName("textarea");
+            setTimeout(() => {
+                toArray(g).forEach(x=> {
+                    auto_grow(x)
+                })
+
+            }, 1000)
         }
     );
 
